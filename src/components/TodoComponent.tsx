@@ -10,8 +10,10 @@ export default function TodoComponent() {
 
     const [todos, setTodos] = useState<Todo[]>([])
     const [todoDescription, setTodoDescription] = useState("")
-    const CHECK_ICON = <i className="fa-solid fa-circle-check"></i>
-    const CIRCLE_DASHED = <i className="fa-solid fa-circle-dashed"></i>
+    const FA_CIRCLE_CHECK = <i className="fa-solid fa-circle-check"></i>
+    const FA_CIRCLE = <i className="fa-solid fa-circle-dashed"></i>
+    const FA_PLUS = <i className="fa-solid fa-plus"></i>
+    const FA_ROTATE_LEFT = <i className="fa-solid fa-rotate-left"></i>
 
     function addTodo() {
         if (todoDescription.length == 0) return;
@@ -55,9 +57,9 @@ export default function TodoComponent() {
 
     function todoRxjs(todo: Todo) {
         return (
-            <div key={todo.getId()}>
+            <p key={todo.getId()} >
                 <div>
-                    {todo.isCompleted() ? CHECK_ICON : CIRCLE_DASHED}
+                    {todo.isCompleted() ? FA_CIRCLE_CHECK : FA_CIRCLE}
                     <b className="card">
                         {todo.getTitle()}
                     </b>
@@ -67,7 +69,7 @@ export default function TodoComponent() {
                     <input type="checkbox" onChange={complete} checked={todo.isCompleted()} id={todo.getId()} />
 
                 </div>
-            </div>
+            </p>
         )
     }
 
@@ -76,8 +78,8 @@ export default function TodoComponent() {
 
             <div className="card">
                 <input type="text" value={todoDescription} onChange={(e) => { setTodoDescription(e.target.value) }} />
-                <button onClick={addTodo}>Add</button>
-                <button onClick={undoLastCommand}>Undo ({commandStack.getCommands().length})</button>
+                <button onClick={addTodo}>Add {FA_PLUS}</button>
+                <button onClick={undoLastCommand}>Undo {FA_ROTATE_LEFT}({commandStack.getCommands().length})</button>
             </div>
             <div className="card">
                 {todos.map(todoRxjs)}
